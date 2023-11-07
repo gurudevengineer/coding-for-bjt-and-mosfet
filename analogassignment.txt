@@ -1,0 +1,120 @@
+#code for bjt and mosfet
+
+print("type 'fixed' for fixed bias")
+print("type'emitter' for emitter bias")
+print("type'voltage divider ' for voltage divider bias")
+print("type 'collector feedback' for collector feedback bias")
+print("type 'mosfetfixed' for mosfet fixed bias")
+print("type 'mosfetvoltagedivider'for mosfet voltage divider bias")
+
+a=input("what type of configuration do u need?type here:")
+
+if(a=='fixed'):
+   vcc=float(input("enter the value for vcc:"))
+   ib=float(input('enter the value of ib:'))
+   hfe=float(input("enter the value for hfe:"))
+   ic=hfe*ib
+   print("the value for ic:",ic,'A')
+   vbe=0.7
+   rb=(vcc-vbe)/ib
+   print("the value of rb",rb)
+   print("calculation for rc!")
+   vce=float(input("enter the value of vce:"))
+   rc=(vcc-vce)/ic
+   print("the vale of rc:",rc,'ohm')
+
+#code for bjt emitter bias
+
+elif(a=='emitter'):
+    vbe=0.7
+    ie=float(input("enter the value for ie:"))
+    ic=float(input("enter the value for ic:"))
+    vce=float(input("enter the value of vce:"))
+    hfe=float(input("enter the value for hfe:"))
+    ib=ic/hfe
+    print("the value of ib:",ib,'A')
+    vee=float(input("enter the value for vee: "))
+    re=(vee-vbe)/ie
+    print("the value of re:",re,'ohm')
+    vcc=float("enter the value for vcc:")
+    rb=(vcc-vbe-ib*(hfe+1)*re)/ib
+    print("the value of rb:",rb,'ohm')
+    rc=(vcc-vce-ie*re+vee)/ic
+    print("the value of rc:",rc,'ohm')
+
+#code for voltage divider bias
+elif(a=='voltage divider'):
+    vbe=0.7
+    print("calcuation for vth!")
+    r1=float(input("enter the value for r1:"))
+    r2=float(input("enter the value for r2:"))
+    vcc=float(input("enter the value for vcc:"))
+    vth=(r2*vcc)/(r1+r2)
+    print("the value of vth",vth)
+    hfe=float(input("enter the value for hfe:"))
+    print("calculation for re")
+    ve=float(input("enter the value for ve:"))
+    ie=float(input("enter the value for ie:"))
+    re=ve/ie
+    print("the value for re:",re)
+    print("calculation for rc:")
+    vce=print("enter the value for vce:")
+    rc=(vcc-vce-ie*re)/ic
+    print("the value for rc:",rc)
+    print("calculation fo rth!")
+    rth=vth-vbe-ib*re*(hfe+1)
+    print("the value for rth:",rth)
+elif(a=='collectorfeedback'):
+      vbe=0.7
+      hfe=float(input("enter the value for hfe:"))
+      vcc=float(input("enter the value of vcc:"))
+      vce=float(input("enter the value of vce:"))
+      ie=float(input ("enter the value of ie:"))
+      print("to find re!")
+      re=vcc/ie
+      print("the value of re :",re)
+      ic=float(input("enter the     value of ic:"))
+      print("calculation for rc!")
+      rc=(vcc-ic*re-vce)/ic
+      print("the value of rc:",rc)
+      rb=(vcc-vbe)/ib-(hfe+1)* (rc+re)
+      print("the value of rb:",rb)
+elif(a=='mosfetfixed'):
+  
+     print("calculation for id!")
+     idss=float(input("enter the  value for idss:"))
+     vgs=float(input("enter the value for vgs:"))
+     vgs=vgg
+     print("the value of vgg:",vgg)
+     vp=float("enter the value for vp")
+     id=idss*(1-vgs/vp)**2
+     print("the value for id:",id)
+     print("calculation for rd!")
+     vdd=float(input("enter the value for vdd:"))
+     rd=(vdd-vgs)/id
+     print("the value of rd is:",rd,'ohm')
+
+
+  
+elif(a=='mosfetvoltagedivider'):
+     print("calculation for vg!")
+     r1=float(input("enter the value for r1:"))
+     r2=float(input("enter the value for r2:"))
+     vdd=float(input("enter the value for vdd:"))
+     vg=(r2*vdd)/(r1+r2)
+     print("calculation for id:")
+     idss=float(input("enter the value for idss:"))
+     vgs=float(input("enter the value for vgs:"))
+     vp=float(input("enter the value for vp:"))
+     id=idss*(1-vgs/vp)**2
+     print("the value of id:",id)
+     print("calculation for rs:")
+     Is=float(input("enter the  value for is:"))
+     rs=(vg-vgs)/Is
+     print("the value of rs:",rs)
+     print("calculation for rd:")
+     vds=float(input("enter the  value for vds:"))
+     rd=(vdd-id*rs-vds)/id
+     print("the value of rd:",rd)
+else:
+  print("invalid input,type correctly")
